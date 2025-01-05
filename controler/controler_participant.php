@@ -1,7 +1,7 @@
 <?php
-require '../helper/connect.php'; 
-require '../model/model_participant.php';  
-require '../model/model_formation.php';
+require_once __DIR__ . '/../connecter/connect.php'; 
+require_once __DIR__ . '/../model/model_participant.php';  
+require_once __DIR__ . '/../model/model_formation.php';
 
 class Ctr_participant {
     private Participant $model;
@@ -22,29 +22,25 @@ class Ctr_participant {
         $prenom = $_POST['prenom'] ;
         $email = $_POST['email'] ;
         $background = $_POST['background'] ;
-        $dateInscription = $_POST['dateInscription'] ;
         $formation_id = $_POST['formation_souhaitee'] ;
 
-        if (!$nom || !$prenom || !$email || !$background || !$dateInscription || !$formation_id) {
+        if (!$nom || !$prenom || !$email || !$background || !$formation_id) {
             echo "All fields are required";
             return;
         }
 
         try {
-            $this->model->addParticipant($nom, $prenom, $email, $background, $dateInscription, $formation_id);
-            echo "Participant added successfully";
+            $this->model->addParticipant($nom, $prenom, $email, $background, $formation_id);
+            self::show();
         } catch (Exception $e) {
             echo "Error adding participant: " . $e->getMessage();
         }
     }
 
     public function show() {
-        try {
-            $formations = $this->formation->getFormation();
-            include 'form_participant.php';
-        } catch (Exception $e) {
-            echo "Error fetching formations: " . $e->getMessage();
-        }
+
+        header('Location: ../form_participant.php?success');
+        exit(0);
     }
 }
 

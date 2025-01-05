@@ -1,4 +1,12 @@
 
+<?php 
+require_once __DIR__ . "/connecter/connect.php";
+require_once __DIR__ . "/model/model_participant.php";
+
+$participant = New Participant($conn);
+
+$formations = $participant->getFormation();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +17,15 @@
 </head>
 <body>
     <form method='POST' action="controler/controler_participant.php">
-   
+    <?php 
+    if (isset($_GET['success']))
+    {
+        echo '<div class="success_alert">
+                <p>Your request has been add successfully?</p>
+            </div>';
+    }
+    ?>
+
     <label for="nom">nom: </label>
     <input type="text" name="nom" placeholder="Entrez votre nom" required>
     <br>
@@ -28,18 +44,18 @@
     <br>
 
     <label for="formation_id">formation souhaitée: </label>
-    <select name='formation' required>
-        <option value=""> selectionnez une formation</option>
-    <?php
-    foreach ($formations as $formation):?> ;
-    <option value="<?= $formation['idF'];?>"
-    <?=htmlspecialchars($formation['nom']);?>
-    </option>
-    <?php endforeach;?>
+        <select name='formation_souhaitee' required>
+            <option value="">Sélectionnez une formation</option>
+            <?php foreach ($formations as $formation): ?>
+                <option value="<?= htmlspecialchars($formation['idF']); ?>">
+                    <?= htmlspecialchars($formation['titre']); ?>
+                </option>
+            <?php endforeach; ?>
 
-</select>
+        </select>
 
     <button type="submit">inscrire</button>
     </form>
 </body>
 </html>
+

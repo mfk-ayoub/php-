@@ -7,22 +7,22 @@ class Participant {
     public $prenom;
     public $email;
     public $background;
-    public $dateInscription;
     public $formation_id;
 
     public function __construct($conn) {
         $this->conn = $conn;
     }
 
-    public function addParticipant($nom, $prenom, $email, $background, $dateInscription, $formation_id) {
+    public function addParticipant($nom, $prenom, $email, $background, $formation_id) {
+     
         try {
-            $sql = "INSERT INTO participants (nom, prenom, email, background, dateInscription, formation_id)
-                    VALUES (?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO participants (nom, prenom, email, background, formation_id)
+                    VALUES (?, ?, ?, ?, ?)";
             $query = $this->conn->prepare($sql);
-            $query->execute([$nom, $prenom, $email, $background, $dateInscription, $formation_id]);
-            return "Participant added successfully.";
+            $query->execute([$nom, $prenom, $email, $background, (int)$formation_id]);
+            echo "Participant added successfully.";
         } catch (PDOException $e) {
-            return "Error adding participant: " . $e->getMessage();
+            echo "Error adding participant: " . $e->getMessage();
         }
     }
 

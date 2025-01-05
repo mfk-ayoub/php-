@@ -1,5 +1,5 @@
 <?php
-require '../helper/connect.php'; 
+require '../connecter/connect.php'; 
 require '../model/model_formation.php';  
 
 class Ctr_formation
