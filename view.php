@@ -5,10 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/view.css">
     <title>Formulaire pour ajouter une formation</title>
 </head>
 <body>
-    <form method='POST' action="controlers.php">
+    <h1>Ajouter une formation à une base de données</h1>
+    <form method='POST' action="controler/controlers.php">
    
     <label for="titre">titre de la formation: </label>
     <input type='text' name='titre' required>
@@ -26,8 +28,8 @@
     <input type='date' name='date_fin'required>
     <br>
     
-    <label for="capacite_max">capacite maximale de la formation: </label>
-    <input type='int' name='capacite'required>
+    <label for="capacite_max">Capacité maximale de la formation: </label>
+    <input type="number" name="capacite" placeholder="Entrez la capacité" required>
     <br>
     <button type="submit">ajouter la formation</button>
     </form>
