@@ -19,25 +19,6 @@ $formations = $participant->getFormation();
 </head>
 <body>
     <form method='POST' action="controler/controler_participant.php">
-     <!-- <?php 
-    if (isset($_GET['success']))
-        {
-            echo '
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Formation Management</title>
-                    <link rel="stylesheet" type="text/css" href="css/success.css"> 
-                </head>
-                <body>
-                    <div class="success_alert">
-                        <p>Your request has been add successfully?</p>
-                    </div>
-                </body>
-                </html>';
-        }
-    ?>  -->
-
     <label for="nom">nom: </label>
     <input type="text" name="nom" placeholder="Entrez votre nom" required>
     <br>

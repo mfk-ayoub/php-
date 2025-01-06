@@ -14,18 +14,27 @@ class Participant {
     }
 
     public function addParticipant($nom, $prenom, $email, $background, $formation_id) {
-     
         try {
             $sql = "INSERT INTO participants (nom, prenom, email, background, formation_id)
                     VALUES (?, ?, ?, ?, ?)";
             $query = $this->conn->prepare($sql);
             $query->execute([$nom, $prenom, $email, $background, (int)$formation_id]);
-            echo "Participant added successfully.";
         } catch (PDOException $e) {
-            echo "Error adding participant: " . $e->getMessage();
+            throw new Exception("Error adding participant: " . $e->getMessage());
         }
     }
 
+    public function isEmailExists($email)
+    {
+        try {
+            $sql = "SELECT COUNT(*) FROM participants WHERE email = ?";
+            $query = $this->conn->prepare($sql);
+            $query->execute([$email]);
+            return $query->fetchColumn() > 0;
+        } catch (PDOException $e) {
+            throw new Exception("Error checking email: " . $e->getMessage());
+        }
+    }
     public function deleteParticipant($idP) {
         try {
             $sql = "DELETE FROM participants WHERE idP = :idP";

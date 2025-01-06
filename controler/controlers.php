@@ -16,7 +16,7 @@ class Ctr_formation
     {
         if ($_SERVER["REQUEST_METHOD"] != 'POST')
         {
-            $this->displayMessage("Invalid request method", "info");
+            $this->displayMessage("Méthode de demande non valide", "info");
             return;
         }
 
@@ -29,17 +29,38 @@ class Ctr_formation
         try
         {
             $this->model->addFormation($titre, $prix, $date_debut, $date_fin, $capacite);
-            $this->displayMessage("Formation added successfully", "success");
+            $this->displayMessage("Formation ajoutée avec succès", "success");
         }
         catch (Exception $e)
         {
-            $this->displayMessage("Error adding formation: " . $e->getMessage(), "error");
+            $this->displayMessage("Erreur lors de l'ajout de la formation :" . $e->getMessage(), "error");
         }
     }
 
     private function displayMessage($message, $type)
     {
-        echo "<div class='$type'>$message</div>";
+        if ($type === "success")
+        {
+            echo "<div class='success'> 
+                    <h1>succès</h1>
+                    <p>$message</p>
+                </div>";
+        }
+        elseif ($type === "error")
+        {
+            echo "<div class='error'>
+                    <h1>erreur</h1>
+                    <p>$message</p>
+                 </div>";
+        }
+        else 
+        {
+            echo "<div class='info'>
+                <h1>info</h1>
+                <p>$message</p>
+            </div>";
+        }
+
     }
 }
 
@@ -48,8 +69,10 @@ class Ctr_formation
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Formation Management</title>
-    <link rel="stylesheet" type="text/css" href="css/controller.css"> 
+    <title>Formation ajoutée avec succès </title>
+    <link rel="stylesheet" type="text/css" href="../css/success.css">
+    <link rel="stylesheet" type="text/css" href="../css/error.css"> 
+
 </head>
 <body>
     <?php
