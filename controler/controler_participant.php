@@ -3,17 +3,21 @@ require_once __DIR__ . '/../connecter/connect.php';
 require_once __DIR__ . '/../model/model_participant.php';  
 require_once __DIR__ . '/../model/model_formation.php';
 
-class Ctr_participant {
+class Ctr_participant 
+{
     private Participant $model;
     private Formation $formation;
 
-    public function __construct($conn) {
+    public function __construct($conn) 
+    {
         $this->model = new Participant($conn);
         $this->formation = new Formation($conn);
     }
 
-    public function addParticipant() {
-        if ($_SERVER["REQUEST_METHOD"] != 'POST') {
+    public function addParticipant() 
+    {
+        if ($_SERVER["REQUEST_METHOD"] != 'POST') 
+        {
             echo "Invalid request method";
             return;
         }
@@ -24,31 +28,42 @@ class Ctr_participant {
         $background = $_POST['background'] ;
         $formation_id = $_POST['formation_souhaitee'] ;
 
-        if (!$nom || !$prenom || !$email || !$background || !$formation_id) {
+        if (!$nom || !$prenom || !$email || !$background || !$formation_id) 
+        {
             echo "All fields are required";
             return;
         }
 
-        try {
+        try 
+        {
             $this->model->addParticipant($nom, $prenom, $email, $background, $formation_id);
             self::show();
-        } catch (Exception $e) {
+        }
+        catch (Exception $e)
+        {
             echo "Error adding participant: " . $e->getMessage();
         }
     }
 
-    public function show() {
+    public function show() 
+    {
 
-        header('Location: ../form_participant.php?success');
-        exit(0);
+        
+        header('Location: ../success.php?success');
+        
     }
 }
 
 $controller = new Ctr_participant($conn);
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+if ($_SERVER["REQUEST_METHOD"] === "POST")
+{
     $controller->addParticipant();
-} else {
+}
+else 
+{
     $controller->show();
 }
 ?>
+
