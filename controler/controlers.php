@@ -39,44 +39,12 @@ class Ctr_formation
 
     private function displayMessage($message, $type)
     {
-        if ($type === "success")
-        {
-            echo "<div class='success'> 
-                    <h1>succès</h1>
-                    <p>$message</p>
-                </div>";
-        }
-        elseif ($type === "error")
-        {
-            echo "<div class='error'>
-                    <h1>erreur</h1>
-                    <p>$message</p>
-                 </div>";
-        }
-        else 
-        {
-            echo "<div class='info'>
-                <h1>info</h1>
-                <p>$message</p>
-            </div>";
-        }
-
+        echo $message , $type ;  
     }
 }
 
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Formation ajoutée avec succès </title>
-    <link rel="stylesheet" type="text/css" href="../css/success.css">
-    <link rel="stylesheet" type="text/css" href="../css/error.css"> 
-
-</head>
-<body>
-    <?php
-    $controller = new Ctr_formation($conn);
-    ?>
-</body>
-</html>
+<?php
+$controller = new Ctr_formation($conn);
+?>

@@ -20,8 +20,7 @@ class Ctr_participant
     {
         if ($_SERVER["REQUEST_METHOD"] != 'POST')
         {
-            header('Location: ../helper/error.php?error=1&message=Invalid request method.');
-            // echo "Invalid request method";
+            echo "Invalid request method";
             return;
         }
 
@@ -33,30 +32,27 @@ class Ctr_participant
 
         if (empty($nom) || empty($prenom) || empty($email) || empty($background) || empty($formation_id))
         {
-            // echo "All fields are required.";
-            header('Location: ../helper/error.php?error=1&message=All fields are required.');
+            echo "All fields are required.";
             return;
         }
 
         if ($this->model->isEmailExists($email))
         {
-            // echo "A participant with this email already exists.";
-            header('Location: ../helper/error.php?error=1&message=A participant with this email already exists.');
+            echo "A participant with this email already exists.";
             return;
         }
 
         try 
         {
             $this->model->addParticipant($nom, $prenom, $email, $background, $formation_id);
-            header(header: 'Location: ../helper/success.php?success=1');
+            echo "success";
             exit;
         }
         catch (Exception $e)
         {
-            // echo "Error adding participant: " . $e->getMessage();
             $errorMessage = "Error adding participant: " . $e->getMessage();
             $encodedMessage = urlencode($errorMessage);
-            header("Location: ../helper/error.php?success=0&message=$encodedMessage");
+            return ($encodedMessage);
         }
     }
 }
@@ -69,6 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 }
 else
 {
-    header('Location: ../helper/success.php');
+   echo "success";
 }
 ?>
